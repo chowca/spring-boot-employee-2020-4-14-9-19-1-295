@@ -65,6 +65,13 @@ public class CompanyController {
         }
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Company createNewCompany(@RequestBody Company company) {
+        companies.add(company);
+        return company;
+    }
+
     @DeleteMapping("/{companyId}/employees")
     public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable int companyId) {
         Company targetedCompany = companies
