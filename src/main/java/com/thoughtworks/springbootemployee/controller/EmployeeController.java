@@ -27,6 +27,21 @@ public class EmployeeController {
         return employees;
     }
 
+    @GetMapping("/{employeeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Employee> getEmployee(@PathVariable int employeeId) {
+        Employee targetedEmployee =  employees
+                .stream()
+                .filter(employee -> employee.getId() == employeeId)
+                .findAny()
+                .orElse(null);
+        if (targetedEmployee != null) {
+            return new ResponseEntity<>(targetedEmployee, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employee createNewEmployee(@RequestBody Employee employee) {
