@@ -50,4 +50,18 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{companyId}/employees")
+    public ResponseEntity<List<Employee>> getCompanyEmployees(@PathVariable int companyId) {
+        Company targetedCompany = companies
+                .stream()
+                .filter(company -> company.getCompanyId() == companyId)
+                .findAny()
+                .orElse(null);
+        if (targetedCompany != null) {
+            return new ResponseEntity<>(targetedCompany.getEmployees(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
