@@ -48,4 +48,19 @@ public class EmployeeController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable int employeeId, @RequestBody Employee updateEmployee) {
+        Employee targetedEmployee = employees
+                .stream()
+                .filter(employee -> employee.getId() == employeeId)
+                .findAny()
+                .orElse(null);
+        if (targetedEmployee != null) {
+            employees.set(employees.indexOf(targetedEmployee),updateEmployee);
+            return new ResponseEntity<>(updateEmployee, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
