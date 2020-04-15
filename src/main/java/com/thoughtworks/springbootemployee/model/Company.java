@@ -7,13 +7,13 @@ public class Company {
     private String companyName;
     private int companyId;
     private int employeesNumber;
-    private List<Employee> employees = new ArrayList<>();
+    private List<Employee> employees;
 
     public Company(String companyName, int companyId, int employeesNumber, List<Employee> employees) {
         this.companyName = companyName;
         this.companyId = companyId;
         this.employeesNumber = employeesNumber;
-        this.employees = employees;
+        this.employees =  employees;
     }
 
     public String getCompanyName() {

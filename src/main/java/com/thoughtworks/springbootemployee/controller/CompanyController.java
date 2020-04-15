@@ -64,4 +64,28 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    /*
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Company createNewCompany(@RequestBody Company company) {
+        companies.add(company);
+        return company;
+    }
+     */
+
+    @DeleteMapping("/{companyId}/employees")
+    public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable int companyId) {
+        Company targetedCompany = companies
+                .stream()
+                .filter(company -> company.getCompanyId() == companyId)
+                .findAny()
+                .orElse(null);
+        if (targetedCompany != null) {
+            targetedCompany.setEmployees(null);
+            return new ResponseEntity<>(targetedCompany.getEmployees(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
