@@ -57,7 +57,7 @@ public class EmployeeController {
                 .findAny()
                 .orElse(null);
         if (targetedEmployee != null) {
-            employees.set(employees.indexOf(targetedEmployee),updateEmployee);
+            employees.set(employees.indexOf(targetedEmployee), updateEmployee);
             return new ResponseEntity<>(updateEmployee, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
