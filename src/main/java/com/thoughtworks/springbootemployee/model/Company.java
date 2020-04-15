@@ -5,11 +5,13 @@ import java.util.List;
 
 public class Company {
     private String companyName;
+    private int companyId;
     private int employeesNumber;
     private List<Employee> employees = new ArrayList<>();
 
-    public Company(String companyName, int employeesNumber, List<Employee> employees) {
+    public Company(String companyName, int companyId, int employeesNumber, List<Employee> employees) {
         this.companyName = companyName;
+        this.companyId = companyId;
         this.employeesNumber = employeesNumber;
         this.employees = employees;
     }
@@ -20,6 +22,14 @@ public class Company {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public int getEmployeesNumber() {
