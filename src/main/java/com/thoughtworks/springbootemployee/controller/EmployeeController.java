@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
@@ -23,21 +25,27 @@ public class EmployeeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getAllEmployees() {
-        return employees;
+    public List<Employee> getAllEmployees(@RequestParam(value = "gender", required = false) String gender) {
+        if (gender != null) {
+            return employees
+                    .stream()
+                    .filter(employee -> employee.getGender().toLowerCase().equals(gender.toLowerCase()))
+                    .collect(Collectors.toList());
+        } else {
+            return employees;
+        }
     }
 
     @GetMapping("/{employeeId}")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Employee> getEmployee(@PathVariable int employeeId) {
-        Employee targetedEmployee =  employees
+        Employee targetedEmployee = employees
                 .stream()
                 .filter(employee -> employee.getId() == employeeId)
                 .findAny()
                 .orElse(null);
         if (targetedEmployee != null) {
             return new ResponseEntity<>(targetedEmployee, HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
