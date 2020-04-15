@@ -7,11 +7,7 @@ public class Employee {
     private String gender;
     private int salary = 0;
 
-    public Employee(int id, String name, int age, String gender) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
+    public Employee() {
     }
 
     public Employee(int id, String name, int age, String gender, int salary) {
@@ -20,6 +16,13 @@ public class Employee {
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+    }
+
+    public Employee(int id, String name, int age, String gender) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
     }
 
     public int getId() {

@@ -1,6 +1,5 @@
 package com.thoughtworks.springbootemployee.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Company {
@@ -13,7 +12,7 @@ public class Company {
         this.companyName = companyName;
         this.companyId = companyId;
         this.employeesNumber = employeesNumber;
-        this.employees =  employees;
+        this.employees = employees;
     }
 
     public String getCompanyName() {
