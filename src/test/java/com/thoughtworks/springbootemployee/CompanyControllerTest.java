@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
@@ -122,19 +123,19 @@ public class CompanyControllerTest {
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         Assert.assertEquals(testCompaniesWithPaging, companies);
     }
-    /*
+
     @Test
-    public void should_add_an_employee() {
-        Employee newEmployee = new Employee(5, "Ben", 25, "Male");
-        doReturn(newEmployee).when(service).createNewEmployee(any());
+    public void should_add_a_company() {
+        Company newCompany = new Company("hello", 3, 500, Arrays.asList(new Employee(1, "Testing", 20, "Male", 12000)));
+        doReturn(newCompany).when(service).createNewCompany(any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
-                .body(newEmployee)
+                .body(newCompany)
                 .when()
-                .post("/employees");
-        Employee employee = response.getBody().as(Employee.class);
+                .post("/companies");
+        Company company = response.getBody().as(Company.class);
 
         Assert.assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
-        Assert.assertEquals(newEmployee, employee);
+        Assert.assertEquals(newCompany, company);
     }
 
     /*

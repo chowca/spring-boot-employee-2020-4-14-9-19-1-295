@@ -33,4 +33,8 @@ public class CompanyService {
     public List<Employee> getEmployeesByCompanyId(Integer companyId) {
         return repository.findEmployeesById(companyId);
     }
+
+    public Company createNewCompany(Company company) {
+        return repository.save(company);
+    }
 }

@@ -48,4 +48,9 @@ public class CompanyRepository {
                 .orElse(null)
                 .getEmployees();
     }
+
+    public Company save(Company company) {
+        companies.add(company);
+        return company;
+    }
 }
