@@ -1,66 +1,41 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Company;
-import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
-    private List<Company> companies = new ArrayList<>();
-    private List<Employee> alibabaEmployees = new ArrayList<>();
-    private List<Employee> ooclEmployees = new ArrayList<>();
 
-    public CompanyController() {
-        alibabaEmployees.add(new Employee(4, "alibaba1", 20, "male", 6000));
-        alibabaEmployees.add(new Employee(11, "tengxun2", 19, "female", 7000));
-        alibabaEmployees.add(new Employee(6, "alibaba3", 19, "male", 8000));
-        alibabaEmployees.add(new Employee(13, "huiwei1", 16, "male", 9000));
-        companies.add(new Company("alibaba", 1, 200, alibabaEmployees));
+    @Autowired
+    private CompanyService service;
 
-        ooclEmployees.add(new Employee(0, "Xiaoming", 20, "Male", 10000));
-        ooclEmployees.add(new Employee(1, "Xiaohong", 19, "Female", 10000));
-        ooclEmployees.add(new Employee(2, "Xiaozhi", 15, "Male", 10000));
-        ooclEmployees.add(new Employee(3, "Xiaogang", 16, "Male", 10000));
-        ooclEmployees.add(new Employee(4, "Xiaoxia", 15, "Female", 10000));
-        companies.add(new Company("oocl", 2, 250, ooclEmployees));
+    public CompanyController(CompanyService service) {
+        this.service = service;
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Company> getAllCompanies(@RequestParam(value = "page", required = false) Integer page,
-                                         @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        if ((page != null) && (pageSize != null)) {
-            return companies
-                    .stream()
-                    .skip(page * pageSize)
-                    .limit(pageSize)
-                    .collect(Collectors.toList());
-        } else {
-            return companies;
-        }
+    public ResponseEntity<List<Company>> getAllCompanies(@RequestParam(value = "page", required = false) Integer page,
+                                                         @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+        return new ResponseEntity<>(service.getAll(page, pageSize), HttpStatus.OK);
     }
 
     @GetMapping("/{companyId}")
-    public ResponseEntity<Company> getCompany(@PathVariable int companyId) {
-        Company targetedCompany = companies
-                .stream()
-                .filter(company -> company.getCompanyId() == companyId)
-                .findAny()
-                .orElse(null);
+    public ResponseEntity<Company> getCompany(@PathVariable Integer companyId) {
+        Company targetedCompany = service.getCompanyById(companyId);
         if (targetedCompany != null) {
             return new ResponseEntity<>(targetedCompany, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
+    /*
     @GetMapping("/{companyId}/employees")
     public ResponseEntity<List<Employee>> getCompanyEmployees(@PathVariable int companyId) {
         Company targetedCompany = companies
@@ -110,5 +85,5 @@ public class CompanyController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 }
