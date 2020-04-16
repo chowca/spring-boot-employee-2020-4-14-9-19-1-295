@@ -35,6 +35,25 @@ public class EmployeeControllerTest {
     }
 
     @Test
+    public void should_find_all_employees(){
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .when()
+                .get("employees");
+        Assert.assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
+        Assert.assertEquals("Xiaoming",employees.get(0).getName());
+        Assert.assertEquals("Xiaohong",employees.get(1).getName());
+        Assert.assertEquals("Xiaozhi", employees.get(2).getName());
+        Assert.assertEquals("Xiaogang",employees.get(3).getName());
+        Assert.assertEquals("Xiaoxia", employees.get(4).getName());
+    }
+
+    @Test
     public void should_find_employee_by_id(){
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
