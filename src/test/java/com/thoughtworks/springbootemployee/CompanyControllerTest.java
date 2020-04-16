@@ -153,16 +153,14 @@ public class CompanyControllerTest {
         Assert.assertEquals(updatedCompany, company);
     }
 
-
-    /*
     @Test
-    public void should_find_employees_by_gender() {
-        doReturn(testEmployeesByGender).when(service).getAll(any(), any(), any());
+    public void should_delete_employees_in_a_company() {
+        List<Employee> expectedEmployees = testCompanies.get(0).getEmployees();
+        doReturn(expectedEmployees).when(service).deleteEmployeesByCompanyId(any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
-                .params("gender", "male")
                 .when()
-                .get("/employees");
-        List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>() {
+                .delete("/companies/1");
+        List<Employee> deletedEmployee = response.getBody().as(new TypeRef<List<Employee>>() {
             @Override
             public Type getType() {
                 return super.getType();
@@ -170,29 +168,6 @@ public class CompanyControllerTest {
         });
 
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        Assert.assertEquals(testEmployeesByGender, employees);
+        Assert.assertEquals(expectedEmployees, deletedEmployee);
     }
-
-    @Test
-    public void should_delete_an_employee() {
-        Employee expectedEmployee = testEmployees.get(0);
-        doReturn(expectedEmployee).when(service).deleteEmployeeById(any());
-        MockMvcResponse response = given().contentType(ContentType.JSON)
-                .when()
-                .delete("/employees/0");
-        Employee deletedEmployee = response.getBody().as(Employee.class);
-
-        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        Assert.assertEquals(expectedEmployee, deletedEmployee);
-    }
-
-    @Test
-    public void should_return_error_when_delete_a_not_exist_employee() {
-        MockMvcResponse response = given().contentType(ContentType.JSON)
-                .when()
-                .delete("/employees/5");
-
-        Assert.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
-    }
-    */
 }

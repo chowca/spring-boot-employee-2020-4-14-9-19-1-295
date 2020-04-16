@@ -47,4 +47,13 @@ public class CompanyService {
             return null;
         }
     }
+
+    public List<Employee> deleteEmployeesByCompanyId(Integer companyId) {
+        Company company = repository.findById(companyId);
+        if (company != null) {
+            return repository.deleteEmployees(company);
+        } else {
+            return null;
+        }
+    }
 }

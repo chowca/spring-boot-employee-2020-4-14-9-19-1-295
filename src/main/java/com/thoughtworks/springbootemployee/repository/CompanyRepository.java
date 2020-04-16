@@ -36,11 +36,11 @@ public class CompanyRepository {
         return companies
                 .stream()
                 .filter(company -> company.getCompanyId() == companyId)
-                .findFirst()
+                .findAny()
                 .orElse(null);
     }
 
-    public List<Employee> findEmployeesById(int companyId) {
+    public List<Employee> findEmployeesById(Integer companyId) {
         return companies
                 .stream()
                 .filter(company -> company.getCompanyId() == companyId)
@@ -58,5 +58,10 @@ public class CompanyRepository {
         companies.get(companies.indexOf(existedCompany)).setCompanyName(updateCompany.getCompanyName());
         companies.get(companies.indexOf(existedCompany)).setEmployeesNumber(updateCompany.getEmployeesNumber());
         companies.get(companies.indexOf(existedCompany)).setEmployees(updateCompany.getEmployees());
+    }
+
+    public List<Employee> deleteEmployees(Company company) {
+        companies.get(companies.indexOf(company)).setEmployees(null);
+        return company.getEmployees();
     }
 }

@@ -62,21 +62,15 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    /*
-    @DeleteMapping("/{companyId}/employees")
-    public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable int companyId) {
-        Company targetedCompany = companies
-                .stream()
-                .filter(company -> company.getCompanyId() == companyId)
-                .findAny()
-                .orElse(null);
-        if (targetedCompany != null) {
-            targetedCompany.setEmployees(null);
-            return new ResponseEntity<>(targetedCompany.getEmployees(), HttpStatus.OK);
+
+    @DeleteMapping("/{companyId}")
+    public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable Integer companyId) {
+        List<Employee> deletedEmployees = service.deleteEmployeesByCompanyId(companyId);
+        if (deletedEmployees != null) {
+            return new ResponseEntity<>(deletedEmployees, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
-   */
 }
