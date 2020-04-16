@@ -51,7 +51,7 @@ public class EmployeeControllerTest {
             }
         });
 
-        Assert.assertEquals(employeeController.getAllEmployees(null,null,null).getBody(), employees);
+        Assert.assertEquals(employeeController.getAllEmployees(null, null, null).getBody(), employees);
     }
 
 
@@ -104,5 +104,26 @@ public class EmployeeControllerTest {
         });
         Assert.assertEquals(3, employees.size());
         Assert.assertEquals(employeeController.getAllEmployees("Male", null, null).getBody(), employees);
+    }
+
+    @Test
+    public void should_delete_an_employee() {
+        Employee expectedEmployee = employeeController.get(0).getBody();
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .when()
+                .delete("/employees/0");
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Employee deletedEmployee = response.getBody().as(Employee.class);
+        Assert.assertEquals(4, employeeController.getAllEmployees(null, null, null).getBody().size());
+        Assert.assertEquals(expectedEmployee, deletedEmployee);
+    }
+
+    @Test
+    public void should_return_error_when_delete_a_not_exist_employee() {
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .when()
+                .delete("/employees/5");
+        Assert.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
+        Assert.assertEquals(5, employeeController.getAllEmployees(null, null, null).getBody().size());
     }
 }

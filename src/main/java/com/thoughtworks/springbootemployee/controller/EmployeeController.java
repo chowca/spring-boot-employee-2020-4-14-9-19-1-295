@@ -43,7 +43,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{employeeId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable int employeeId, @RequestBody Employee updateEmployee) {
+    public ResponseEntity<Employee> update(@PathVariable int employeeId, @RequestBody Employee updateEmployee) {
         Employee updatedEmployee = service.updateEmployee(employeeId, updateEmployee);
         if (updatedEmployee != null) {
             return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
@@ -51,42 +51,14 @@ public class EmployeeController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    /*
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getAllEmployees(@RequestParam(value = "gender", required = false) String gender,
-                                          @RequestParam(value = "page", required = false) Integer page,
-                                          @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        if (gender != null) {
-            return employees
-                    .stream()
-                    .filter(employee -> employee.getGender().toLowerCase().equals(gender.toLowerCase()))
-                    .collect(Collectors.toList());
-        } else if ((page != null) && (pageSize != null)) {
-            return employees
-                    .stream()
-                    .skip(page * pageSize)
-                    .limit(pageSize)
-                    .collect(Collectors.toList());
-        } else {
-            return employees;
-        }
-    }
 
     @DeleteMapping("/{employeeId}")
     public ResponseEntity<Employee> deleteEmployee(@PathVariable int employeeId) {
-        Employee targetedEmployee = employees
-                .stream()
-                .filter(employee -> employee.getId() == employeeId)
-                .findAny()
-                .orElse(null);
-        if (targetedEmployee != null) {
-            employees.remove(targetedEmployee);
-            return new ResponseEntity<>(targetedEmployee, HttpStatus.OK);
+        Employee deletedEmployee = service.deleteEmployeeById(employeeId);
+        if (deletedEmployee != null) {
+            return new ResponseEntity<>(deletedEmployee, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
-     */
 }

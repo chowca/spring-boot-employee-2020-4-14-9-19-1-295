@@ -47,4 +47,13 @@ public class EmployeeService {
             return null;
         }
     }
+
+    public Employee deleteEmployeeById(int employeeId) {
+        Employee employee = repository.findById(employeeId);
+        if (employee != null) {
+            return repository.delete(employee);
+        } else {
+            return null;
+        }
+    }
 }

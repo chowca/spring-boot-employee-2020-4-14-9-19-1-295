@@ -43,4 +43,9 @@ public class EmployeeRepository {
         employees.get(employees.indexOf(existedEmployee)).setGender(updateEmployee.getGender());
         employees.get(employees.indexOf(existedEmployee)).setSalary(updateEmployee.getSalary());
     }
+
+    public Employee delete(Employee employee) {
+        employees.remove(employee);
+        return employee;
+    }
 }
