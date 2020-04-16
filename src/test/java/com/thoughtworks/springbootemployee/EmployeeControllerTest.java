@@ -22,7 +22,6 @@ import java.util.List;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringRunner.class)
@@ -57,12 +56,19 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_find_all_employees() {
-        doReturn(testEmployees).when(service).getAll(any(),any(),any());
+        doReturn(testEmployees).when(service).getAll(any(), any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
                 .get("/employees");
+        List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
 
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Assert.assertEquals(testEmployees, employees);
     }
 
 
@@ -72,8 +78,10 @@ public class EmployeeControllerTest {
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
                 .get("/employees/1");
+        Employee employee = response.getBody().as(Employee.class);
 
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Assert.assertEquals(testEmployees.get(1), employee);
     }
 
     @Test
@@ -93,7 +101,7 @@ public class EmployeeControllerTest {
     @Test
     public void should_update_an_employee() {
         Employee updatedEmployee = new Employee(0, "Ken", 35, "Male");
-        doReturn(updatedEmployee).when(service).updateEmployee(any(),any());
+        doReturn(updatedEmployee).when(service).updateEmployee(any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(updatedEmployee)
                 .when()
@@ -106,7 +114,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_find_employees_by_gender() {
-        doReturn(testEmployeesByGender).when(service).getAll(any(),any(),any());
+        doReturn(testEmployeesByGender).when(service).getAll(any(), any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .params("gender", "male")
                 .when()
@@ -117,7 +125,9 @@ public class EmployeeControllerTest {
                 return super.getType();
             }
         });
+
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Assert.assertEquals(testEmployeesByGender, employees);
     }
 
     @Test
@@ -138,6 +148,25 @@ public class EmployeeControllerTest {
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
                 .delete("/employees/5");
+
         Assert.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
+    }
+
+    @Test
+    public void should_return_2_employee_in_page_0() {
+        doReturn(testEmployeesWithPaging).when(service).getAll(any(), any(), any());
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .params("page", "0", "pageSize", "2")
+                .when()
+                .get("/employees");
+        List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
+
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Assert.assertEquals(testEmployeesWithPaging, employees);
     }
 }
