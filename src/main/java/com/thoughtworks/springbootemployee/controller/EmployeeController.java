@@ -7,17 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
+
     @Autowired
     private EmployeeService service;
 
-    public EmployeeController() {
+    public EmployeeController(EmployeeService service) {
+        this.service = service;
     }
 
     @GetMapping
@@ -28,7 +28,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<Employee> get(@PathVariable int employeeId) {
+    public ResponseEntity<Employee> get(@PathVariable Integer employeeId) {
         Employee targetedEmployee = service.getEmployeeById(employeeId);
         if (targetedEmployee != null) {
             return new ResponseEntity<>(targetedEmployee, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{employeeId}")
-    public ResponseEntity<Employee> update(@PathVariable int employeeId, @RequestBody Employee updateEmployee) {
+    public ResponseEntity<Employee> update(@PathVariable Integer employeeId, @RequestBody Employee updateEmployee) {
         Employee updatedEmployee = service.updateEmployee(employeeId, updateEmployee);
         if (updatedEmployee != null) {
             return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
@@ -53,7 +53,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{employeeId}")
-    public ResponseEntity<Employee> deleteEmployee(@PathVariable int employeeId) {
+    public ResponseEntity<Employee> delete(@PathVariable Integer employeeId) {
         Employee deletedEmployee = service.deleteEmployeeById(employeeId);
         if (deletedEmployee != null) {
             return new ResponseEntity<>(deletedEmployee, HttpStatus.OK);

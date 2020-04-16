@@ -30,7 +30,7 @@ public class EmployeeService {
         }
     }
 
-    public Employee getEmployeeById(int employeeId) {
+    public Employee getEmployeeById(Integer employeeId) {
         return repository.findById(employeeId);
     }
 
@@ -38,7 +38,7 @@ public class EmployeeService {
         return repository.save(employee);
     }
 
-    public Employee updateEmployee(int employeeId, Employee updateEmployee) {
+    public Employee updateEmployee(Integer employeeId, Employee updateEmployee) {
         Employee existedEmployee = repository.findById(employeeId);
         if ((existedEmployee != null) && (existedEmployee.getId() == updateEmployee.getId())) {
             repository.update(existedEmployee, updateEmployee);
@@ -48,7 +48,7 @@ public class EmployeeService {
         }
     }
 
-    public Employee deleteEmployeeById(int employeeId) {
+    public Employee deleteEmployeeById(Integer employeeId) {
         Employee employee = repository.findById(employeeId);
         if (employee != null) {
             return repository.delete(employee);

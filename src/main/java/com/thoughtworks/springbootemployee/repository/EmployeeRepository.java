@@ -24,11 +24,11 @@ public class EmployeeRepository {
         return employees;
     }
 
-    public Employee findById(int employeeId) {
+    public Employee findById(Integer employeeId) {
         return employees
                 .stream()
                 .filter(employee -> employee.getId() == employeeId)
-                .findAny()
+                .findFirst()
                 .orElse(null);
     }
 
