@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
@@ -33,8 +34,17 @@ public class CompanyController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Company> getAllCompanies() {
-        return companies;
+    public List<Company> getAllCompanies(@RequestParam(value = "page", required = false) Integer page,
+                                         @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+        if ((page != null) && (pageSize != null)) {
+            return companies
+                    .stream()
+                    .skip(page * pageSize)
+                    .limit(pageSize)
+                    .collect(Collectors.toList());
+        } else {
+            return companies;
+        }
     }
 
     @GetMapping("/{companyId}")

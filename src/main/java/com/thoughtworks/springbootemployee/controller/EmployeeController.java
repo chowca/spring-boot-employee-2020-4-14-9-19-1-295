@@ -24,11 +24,19 @@ public class EmployeeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getAllEmployees(@RequestParam(value = "gender", required = false) String gender) {
+    public List<Employee> getAllEmployees(@RequestParam(value = "gender", required = false) String gender,
+                                          @RequestParam(value = "page", required = false) Integer page,
+                                          @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         if (gender != null) {
             return employees
                     .stream()
                     .filter(employee -> employee.getGender().toLowerCase().equals(gender.toLowerCase()))
+                    .collect(Collectors.toList());
+        } else if ((page != null) && (pageSize != null)) {
+            return employees
+                    .stream()
+                    .skip(page * pageSize)
+                    .limit(pageSize)
                     .collect(Collectors.toList());
         } else {
             return employees;
