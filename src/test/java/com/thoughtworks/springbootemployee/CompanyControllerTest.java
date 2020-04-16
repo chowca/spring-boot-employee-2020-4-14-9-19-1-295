@@ -60,7 +60,7 @@ public class CompanyControllerTest {
 
     @Test
     public void should_find_all_companies() {
-        doReturn(testCompanies).when(service).getAll(any(),any());
+        doReturn(testCompanies).when(service).getAll(any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .when()
                 .get("/companies");
@@ -105,6 +105,23 @@ public class CompanyControllerTest {
         Assert.assertEquals(testCompanies.get(1).getEmployees(), employees);
     }
 
+    @Test
+    public void should_return_1_company_in_page_0() {
+        doReturn(testCompaniesWithPaging).when(service).getAll(any(), any());
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .params("page", "0", "pageSize", "1")
+                .when()
+                .get("/companies");
+        List<Company> companies = response.getBody().as(new TypeRef<List<Company>>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
+
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Assert.assertEquals(testCompaniesWithPaging, companies);
+    }
     /*
     @Test
     public void should_add_an_employee() {
@@ -173,24 +190,6 @@ public class CompanyControllerTest {
                 .delete("/employees/5");
 
         Assert.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
-    }
-
-    @Test
-    public void should_return_2_employee_in_page_0() {
-        doReturn(testEmployeesWithPaging).when(service).getAll(any(), any(), any());
-        MockMvcResponse response = given().contentType(ContentType.JSON)
-                .params("page", "0", "pageSize", "2")
-                .when()
-                .get("/employees");
-        List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>() {
-            @Override
-            public Type getType() {
-                return super.getType();
-            }
-        });
-
-        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        Assert.assertEquals(testEmployeesWithPaging, employees);
     }
     */
 }
