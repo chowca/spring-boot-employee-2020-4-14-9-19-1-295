@@ -39,4 +39,13 @@ public class CompanyRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    public List<Employee> findEmployeesById(int companyId) {
+        return companies
+                .stream()
+                .filter(company -> company.getCompanyId() == companyId)
+                .findAny()
+                .orElse(null)
+                .getEmployees();
+    }
 }

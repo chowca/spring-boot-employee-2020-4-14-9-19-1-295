@@ -88,6 +88,23 @@ public class CompanyControllerTest {
         Assert.assertEquals(testCompanies.get(1), company);
     }
 
+    @Test
+    public void should_find_employees_in_specific_company_by_id() {
+        doReturn(testCompanies.get(1).getEmployees()).when(service).getEmployeesByCompanyId(any());
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .when()
+                .get("/companies/1/employees");
+        List<Employee> employees = response.getBody().as(new TypeRef<List<Employee>>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
+
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        Assert.assertEquals(testCompanies.get(1).getEmployees(), employees);
+    }
+
     /*
     @Test
     public void should_add_an_employee() {
@@ -103,6 +120,7 @@ public class CompanyControllerTest {
         Assert.assertEquals(newEmployee, employee);
     }
 
+    /*
     @Test
     public void should_update_an_employee() {
         Employee updatedEmployee = new Employee(0, "Ken", 35, "Male");

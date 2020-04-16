@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{companyId}")
-    public ResponseEntity<Company> getCompany(@PathVariable Integer companyId) {
+    public ResponseEntity<Company> get(@PathVariable Integer companyId) {
         Company targetedCompany = service.getCompanyById(companyId);
         if (targetedCompany != null) {
             return new ResponseEntity<>(targetedCompany, HttpStatus.OK);
@@ -35,21 +36,17 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    /*
+
     @GetMapping("/{companyId}/employees")
-    public ResponseEntity<List<Employee>> getCompanyEmployees(@PathVariable int companyId) {
-        Company targetedCompany = companies
-                .stream()
-                .filter(company -> company.getCompanyId() == companyId)
-                .findAny()
-                .orElse(null);
-        if (targetedCompany != null) {
-            return new ResponseEntity<>(targetedCompany.getEmployees(), HttpStatus.OK);
+    public ResponseEntity<List<Employee>> getCompanyEmployees(@PathVariable Integer companyId) {
+        List<Employee> targetedEmployees = service.getEmployeesByCompanyId(companyId);
+        if (targetedEmployees != null) {
+            return new ResponseEntity<>(targetedEmployees, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
+    /*
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Company createNewCompany(@RequestBody Company company) {
