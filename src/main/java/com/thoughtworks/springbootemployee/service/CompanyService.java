@@ -37,4 +37,14 @@ public class CompanyService {
     public Company createNewCompany(Company company) {
         return repository.save(company);
     }
+
+    public Company updateCompany(Integer companyId, Company updateCompany) {
+        Company existedCompany = repository.findById(companyId);
+        if ((existedCompany != null) && (existedCompany.getCompanyId() == updateCompany.getCompanyId())) {
+            repository.update(existedCompany, updateCompany);
+            return repository.findById(companyId);
+        } else {
+            return null;
+        }
+    }
 }

@@ -138,21 +138,23 @@ public class CompanyControllerTest {
         Assert.assertEquals(newCompany, company);
     }
 
-    /*
+
     @Test
-    public void should_update_an_employee() {
-        Employee updatedEmployee = new Employee(0, "Ken", 35, "Male");
-        doReturn(updatedEmployee).when(service).updateEmployee(any(), any());
+    public void should_update_a_company() {
+        Company updatedCompany = new Company("hello", 1, 500, Arrays.asList(new Employee(1, "Testing", 20, "Male", 12000)));
+        doReturn(updatedCompany).when(service).updateCompany(any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
-                .body(updatedEmployee)
+                .body(updatedCompany)
                 .when()
-                .put("/employees/0");
-        Employee employee = response.getBody().as(Employee.class);
+                .put("/companies/1");
+        Company company = response.getBody().as(Company.class);
 
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        Assert.assertEquals(updatedEmployee, employee);
+        Assert.assertEquals(updatedCompany, company);
     }
 
+
+    /*
     @Test
     public void should_find_employees_by_gender() {
         doReturn(testEmployeesByGender).when(service).getAll(any(), any(), any());

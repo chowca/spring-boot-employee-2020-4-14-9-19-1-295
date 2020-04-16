@@ -49,10 +49,19 @@ public class CompanyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Company> createNewCompany(@RequestBody Company company) {
+    public ResponseEntity<Company> create(@RequestBody Company company) {
         return new ResponseEntity<>(service.createNewCompany(company), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{companyId}")
+    public ResponseEntity<Company> update(@PathVariable Integer companyId, @RequestBody Company updateCompany) {
+        Company updatedCompany = service.updateCompany(companyId, updateCompany);
+        if (updatedCompany != null) {
+            return new ResponseEntity<>(updatedCompany, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
     /*
     @DeleteMapping("/{companyId}/employees")
     public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable int companyId) {
@@ -69,18 +78,5 @@ public class CompanyController {
         }
     }
 
-    @PutMapping("/{companyId}")
-    public ResponseEntity<Company> updateEmployee(@PathVariable int companyId, @RequestBody Company updateCompany) {
-        Company targetedCompany = companies
-                .stream()
-                .filter(company -> company.getCompanyId() == companyId)
-                .findAny()
-                .orElse(null);
-        if (targetedCompany != null) {
-            companies.set(companies.indexOf(targetedCompany), updateCompany);
-            return new ResponseEntity<>(updateCompany, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }*/
+   */
 }

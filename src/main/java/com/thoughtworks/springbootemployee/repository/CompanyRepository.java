@@ -53,4 +53,10 @@ public class CompanyRepository {
         companies.add(company);
         return company;
     }
+
+    public void update(Company existedCompany, Company updateCompany) {
+        companies.get(companies.indexOf(existedCompany)).setCompanyName(updateCompany.getCompanyName());
+        companies.get(companies.indexOf(existedCompany)).setEmployeesNumber(updateCompany.getEmployeesNumber());
+        companies.get(companies.indexOf(existedCompany)).setEmployees(updateCompany.getEmployees());
+    }
 }
