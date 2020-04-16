@@ -47,7 +47,7 @@ public class EmployeeControllerTest {
             }
         });
 
-        Assert.assertEquals(employees, employeeController.getAllEmployees(null, null, null));
+        Assert.assertEquals(employeeController.getAllEmployees(null, null, null), employees);
     }
 
     @Test
@@ -74,9 +74,7 @@ public class EmployeeControllerTest {
             }
         });
         Assert.assertEquals(3, employees.size());
-        Assert.assertEquals("Xiaoming", employees.get(0).getName());
-        Assert.assertEquals("Xiaozhi", employees.get(1).getName());
-        Assert.assertEquals("Xiaogang", employees.get(2).getName());
+        Assert.assertEquals(employeeController.getAllEmployees("Male", null, null),employees);
     }
 
     @Test
@@ -88,6 +86,6 @@ public class EmployeeControllerTest {
                 .post("/employees");
         Assert.assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
         Employee employee = response.getBody().as(Employee.class);
-        Assert.assertEquals(newEmployee.getName(), employee.getName());
+        Assert.assertEquals(newEmployee, employee);
     }
 }
