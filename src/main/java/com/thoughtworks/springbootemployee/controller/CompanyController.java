@@ -48,7 +48,6 @@ public class CompanyController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Company> create(@RequestBody Company company) {
         return new ResponseEntity<>(service.createNewCompany(company), HttpStatus.CREATED);
     }
