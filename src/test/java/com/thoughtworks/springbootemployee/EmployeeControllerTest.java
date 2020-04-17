@@ -86,7 +86,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_add_an_employee() {
-        Employee newEmployee = new Employee(5, "Ben", 25, "Male");
+        Employee newEmployee = new Employee(5, "Ben", 25, "Male", 2000);
         doReturn(newEmployee).when(service).createNewEmployee(any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(newEmployee)
@@ -100,7 +100,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_update_an_employee() {
-        Employee updatedEmployee = new Employee(0, "Ken", 35, "Male");
+        Employee updatedEmployee = new Employee(0, "Ken", 35, "Male", 2000);
         doReturn(updatedEmployee).when(service).updateEmployee(any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(updatedEmployee)
@@ -169,4 +169,5 @@ public class EmployeeControllerTest {
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         Assert.assertEquals(testEmployeesWithPaging, employees);
     }
+
 }
