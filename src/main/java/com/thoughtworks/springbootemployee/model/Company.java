@@ -1,69 +1,43 @@
 package com.thoughtworks.springbootemployee.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "company")
 public class Company {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer companyId;
     private String companyName;
-    private int companyId;
-    private int employeesNumber;
+    private Integer employeesNumber;
+
+    @OneToMany(targetEntity = Employee.class, mappedBy = "companyId", fetch = FetchType.EAGER, orphanRemoval=true)
     private List<Employee> employees;
-
-    public Company() {
-    }
-
-    public Company(String companyName, int companyId, int employeesNumber, List<Employee> employees) {
-        this.companyName = companyName;
-        this.companyId = companyId;
-        this.employeesNumber = employeesNumber;
-        this.employees = employees;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
-
-    public int getEmployeesNumber() {
-        return employeesNumber;
-    }
-
-    public void setEmployeesNumber(int employeesNumber) {
-        this.employeesNumber = employeesNumber;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return companyId == company.companyId &&
-                employeesNumber == company.employeesNumber &&
+        return Objects.equals(companyId, company.companyId) &&
                 Objects.equals(companyName, company.companyName) &&
+                Objects.equals(employeesNumber, company.employeesNumber) &&
                 Objects.equals(employees, company.employees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, companyId, employeesNumber, employees);
+        return Objects.hash(companyId, companyName, employeesNumber, employees);
     }
 }

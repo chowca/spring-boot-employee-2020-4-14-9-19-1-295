@@ -1,6 +1,5 @@
-package com.thoughtworks.springbootemployee;
+package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.controller.CompanyController;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
@@ -43,20 +42,20 @@ public class CompanyControllerTest {
         companyController = new CompanyController(service);
         RestAssuredMockMvc.standaloneSetup(companyController);
 
-        testCompany1Employees.add(new Employee(4, "alibaba1", 20, "male", 6000));
-        testCompany1Employees.add(new Employee(11, "tengxun2", 19, "female", 7000));
-        testCompany1Employees.add(new Employee(6, "alibaba3", 19, "male", 8000));
-        testCompany1Employees.add(new Employee(13, "huiwei1", 16, "male", 9000));
-        testCompanies.add(new Company("alibaba", 1, 200, testCompany1Employees));
+        testCompany1Employees.add(new Employee(1, "alibaba1", 20, "male", 6000, 1, null));
+        testCompany1Employees.add(new Employee(2, "tengxun2", 19, "female", 7000, 1, null));
+        testCompany1Employees.add(new Employee(3, "alibaba3", 19, "male", 8000, 1, null));
+        testCompany1Employees.add(new Employee(4, "huiwei1", 16, "male", 9000, 1, null));
+        testCompanies.add(new Company(1, "alibaba", 200, testCompany1Employees));
 
-        testCompany2Employees.add(new Employee(0, "Xiaoming", 20, "Male", 10000));
-        testCompany2Employees.add(new Employee(1, "Xiaohong", 19, "Female", 10000));
-        testCompany2Employees.add(new Employee(2, "Xiaozhi", 15, "Male", 10000));
-        testCompany2Employees.add(new Employee(3, "Xiaogang", 16, "Male", 10000));
-        testCompany2Employees.add(new Employee(4, "Xiaoxia", 15, "Female", 10000));
-        testCompanies.add(new Company("oocl", 2, 250, testCompany2Employees));
+        testCompany2Employees.add(new Employee(5, "Xiaoming", 20, "male", 10000, 2, null));
+        testCompany2Employees.add(new Employee(6, "Xiaohong", 19, "female", 10000, 2, null));
+        testCompany2Employees.add(new Employee(7, "Xiaozhi", 30, "male", 10000, 2, null));
+        testCompany2Employees.add(new Employee(8, "Xiaogang", 36, "male", 10000, 2, null));
+        testCompany2Employees.add(new Employee(9, "Xiaoxia", 45, "female", 10000, 2, null));
+        testCompanies.add(new Company(2, "oocl", 250, testCompany2Employees));
 
-        testCompaniesWithPaging.add(new Company("alibaba", 1, 200, testCompany1Employees));
+        testCompaniesWithPaging.add(new Company(1, "alibaba", 200, testCompany1Employees));
     }
 
     @Test
@@ -75,7 +74,6 @@ public class CompanyControllerTest {
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         Assert.assertEquals(testCompanies, companies);
     }
-
 
     @Test
     public void should_find_company_by_id() {
@@ -126,7 +124,7 @@ public class CompanyControllerTest {
 
     @Test
     public void should_add_a_company() {
-        Company newCompany = new Company("hello", 3, 500, Arrays.asList(new Employee(1, "Testing", 20, "Male", 12000)));
+        Company newCompany = new Company(3, "hello", 500, Arrays.asList(new Employee(1, "Testing", 20, "Male", 12000, 3, null)));
         doReturn(newCompany).when(service).createNewCompany(any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(newCompany)
@@ -141,7 +139,7 @@ public class CompanyControllerTest {
 
     @Test
     public void should_update_a_company() {
-        Company updatedCompany = new Company("hello", 1, 500, Arrays.asList(new Employee(1, "Testing", 20, "Male", 12000)));
+        Company updatedCompany = new Company(1, "hello", 500, Arrays.asList(new Employee(1, "Testing", 20, "Male", 12000, 1, null)));
         doReturn(updatedCompany).when(service).updateCompany(any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(updatedCompany)

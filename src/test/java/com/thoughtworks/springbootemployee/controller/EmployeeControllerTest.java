@@ -1,6 +1,5 @@
-package com.thoughtworks.springbootemployee;
+package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.controller.EmployeeController;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import io.restassured.http.ContentType;
@@ -40,18 +39,18 @@ public class EmployeeControllerTest {
         employeeController = new EmployeeController(service);
         RestAssuredMockMvc.standaloneSetup(employeeController);
 
-        testEmployees.add(new Employee(0, "Xiaoming", 20, "Male", 6000));
-        testEmployees.add(new Employee(1, "Xiaohong", 19, "Female", 7000));
-        testEmployees.add(new Employee(2, "Xiaozhi", 15, "Male", 8000));
-        testEmployees.add(new Employee(3, "Xiaogang", 16, "Male", 9000));
-        testEmployees.add(new Employee(4, "Xiaoxia", 15, "Female", 10000));
+        testEmployees.add(new Employee(5, "Xiaoming", 20, "male", 10000, 2, null));
+        testEmployees.add(new Employee(6, "Xiaohong", 19, "female", 10000, 2, null));
+        testEmployees.add(new Employee(7, "Xiaozhi", 30, "male", 10000, 2, null));
+        testEmployees.add(new Employee(8, "Xiaogang", 36, "male", 10000, 2, null));
+        testEmployees.add(new Employee(9, "Xiaoxia", 45, "female", 10000, 2, null));
 
-        testEmployeesByGender.add(new Employee(0, "Xiaoming", 20, "Male", 6000));
-        testEmployeesByGender.add(new Employee(2, "Xiaozhi", 15, "Male", 8000));
-        testEmployeesByGender.add(new Employee(3, "Xiaogang", 16, "Male", 9000));
+        testEmployeesByGender.add(new Employee(5, "Xiaoming", 20, "male", 10000, 2, null));
+        testEmployeesByGender.add(new Employee(7, "Xiaozhi", 30, "male", 10000, 2, null));
+        testEmployeesByGender.add(new Employee(8, "Xiaogang", 36, "male", 10000, 2, null));
 
-        testEmployeesWithPaging.add(new Employee(0, "Xiaoming", 20, "Male", 6000));
-        testEmployeesWithPaging.add(new Employee(1, "Xiaohong", 19, "Female", 7000));
+        testEmployeesWithPaging.add(new Employee(5, "Xiaoming", 20, "male", 10000, 2, null));
+        testEmployeesWithPaging.add(new Employee(6, "Xiaohong", 19, "female", 10000, 2, null));
     }
 
     @Test
@@ -86,7 +85,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_add_an_employee() {
-        Employee newEmployee = new Employee(5, "Ben", 25, "Male", 2000);
+        Employee newEmployee = new Employee(5, "Ben", 25, "Male", 2000, 1, null);
         doReturn(newEmployee).when(service).createNewEmployee(any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(newEmployee)
@@ -100,7 +99,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void should_update_an_employee() {
-        Employee updatedEmployee = new Employee(0, "Ken", 35, "Male", 2000);
+        Employee updatedEmployee = new Employee(0, "Ken", 35, "Male", 2000, 1, null);
         doReturn(updatedEmployee).when(service).updateEmployee(any(), any());
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(updatedEmployee)

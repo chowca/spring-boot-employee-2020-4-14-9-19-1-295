@@ -11,22 +11,28 @@ import java.util.List;
 @Service
 public class EmployeeService {
     @Autowired
-    private EmployeeRepository repository;
+    private EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllEmployees() {
-        return repository.findAll();
+    public List<Employee> getAll(String gender, Integer page, Integer pageSize) {
+        if (gender != null) {
+            return employeeRepository.findAllByGender(gender);
+        } else if ((page != null) && (pageSize != null)) {
+            return employeeRepository.findAll(PageRequest.of(page, pageSize)).getContent();
+        } else {
+            return employeeRepository.findAll();
+        }
     }
 
     public Employee getEmployeeById(Integer employeeId) {
-        return repository.findById(employeeId).orElse(null);
+        return employeeRepository.findById(employeeId).orElse(null);
     }
 
     public Employee createNewEmployee(Employee employee) {
-        return repository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     public Employee updateEmployee(Integer employeeId, Employee updateEmployee) {
-        Employee existedEmployee = repository.findById(employeeId).orElse(null);
+        Employee existedEmployee = employeeRepository.findById(employeeId).orElse(null);
         if (existedEmployee == null) {
             return null;
         } else {
@@ -34,27 +40,18 @@ public class EmployeeService {
             existedEmployee.setAge(updateEmployee.getAge());
             existedEmployee.setGender(updateEmployee.getGender());
             existedEmployee.setSalary(updateEmployee.getSalary());
-            return repository.save(existedEmployee);
+            existedEmployee.setCompanyId(updateEmployee.getCompanyId());
+            return employeeRepository.save(existedEmployee);
         }
     }
 
     public Employee deleteEmployeeById(Integer employeeId) {
-        Employee employee = repository.findById(employeeId).orElse(null);
+        Employee employee = employeeRepository.findById(employeeId).orElse(null);
         if (employee == null) {
             return null;
         } else {
-            repository.delete(employee);
+            employeeRepository.delete(employee);
             return employee;
-        }
-    }
-
-    public List<Employee> getAll(String gender, Integer page, Integer pageSize) {
-        if (gender != null) {
-            return repository.findAllByGender(gender);
-        } else if ((page != null) && (pageSize != null)) {
-            return repository.findAll(PageRequest.of(page, pageSize)).getContent();
-        } else {
-            return repository.findAll();
         }
     }
 }

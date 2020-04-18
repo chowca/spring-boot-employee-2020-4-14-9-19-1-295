@@ -37,6 +37,11 @@ public class CompanyController {
         }
     }
 
+    @PostMapping
+    public ResponseEntity<Company> create(@RequestBody Company company) {
+        return new ResponseEntity<>(service.createNewCompany(company), HttpStatus.CREATED);
+    }
+
     @GetMapping("/{companyId}/employees")
     public ResponseEntity<List<Employee>> getCompanyEmployees(@PathVariable Integer companyId) {
         List<Employee> targetedEmployees = service.getEmployeesByCompanyId(companyId);
@@ -46,12 +51,6 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
-    @PostMapping
-    public ResponseEntity<Company> create(@RequestBody Company company) {
-        return new ResponseEntity<>(service.createNewCompany(company), HttpStatus.CREATED);
-    }
-
     @PutMapping("/{companyId}")
     public ResponseEntity<Company> update(@PathVariable Integer companyId, @RequestBody Company updateCompany) {
         Company updatedCompany = service.updateCompany(companyId, updateCompany);
@@ -61,7 +60,6 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
     @DeleteMapping("/{companyId}")
     public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable Integer companyId) {
         List<Employee> deletedEmployees = service.deleteEmployeesByCompanyId(companyId);
@@ -71,5 +69,4 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
 }
