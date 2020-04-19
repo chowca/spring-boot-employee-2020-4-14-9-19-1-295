@@ -22,7 +22,7 @@ public class Company {
     private String companyName;
     private Integer employeesNumber;
 
-    @OneToMany(targetEntity = Employee.class, mappedBy = "companyId", fetch = FetchType.EAGER, orphanRemoval=true)
+    @OneToMany(targetEntity = Employee.class, mappedBy = "companyId", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Employee> employees;
 
     @Override

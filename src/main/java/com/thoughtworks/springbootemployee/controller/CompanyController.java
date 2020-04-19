@@ -51,6 +51,7 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
     @PutMapping("/{companyId}")
     public ResponseEntity<Company> update(@PathVariable Integer companyId, @RequestBody Company updateCompany) {
         Company updatedCompany = service.updateCompany(companyId, updateCompany);
@@ -60,6 +61,7 @@ public class CompanyController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
     @DeleteMapping("/{companyId}")
     public ResponseEntity<List<Employee>> deleteCompanyEmployees(@PathVariable Integer companyId) {
         List<Employee> deletedEmployees = service.deleteEmployeesByCompanyId(companyId);

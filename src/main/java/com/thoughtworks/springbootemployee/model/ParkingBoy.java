@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,11 @@ import java.util.Objects;
 @Table(name = "parking_boy")
 public class ParkingBoy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer employeeId;
     private String nickName;
 
-    @OneToOne (mappedBy = "parkingBoy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToOne(mappedBy = "parkingBoy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Employee employee;
 
     @Override
@@ -28,13 +29,12 @@ public class ParkingBoy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ParkingBoy that = (ParkingBoy) o;
-        return Objects.equals(nickName, that.nickName) &&
-                Objects.equals(employeeId, that.employeeId) &&
-                Objects.equals(employee, that.employee);
+        return Objects.equals(employeeId, that.employeeId) &&
+                Objects.equals(nickName, that.nickName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nickName, employeeId, employee);
+        return Objects.hash(employeeId, nickName);
     }
 }

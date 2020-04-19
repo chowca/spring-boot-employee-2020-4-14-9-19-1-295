@@ -1,0 +1,711 @@
+{
+	"info": {
+		"_postman_id": "60aebda6-09a9-4744-8568-49eddd2caa14",
+		"name": "spring boot employee test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Get company list / specific company details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/companies/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies",
+								""
+							]
+						},
+						"description": "1. Obtain company list - localhost:8080/companies\n2. Obtain a certain specific company - localhost:8080/companies/{companyId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of all employee under a certain specific company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/companies/1/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies",
+								"1",
+								"employees"
+							]
+						},
+						"description": "1. Obtain list of all employee under a certain specific company - localhost:8080/companies/{companyId}/employees"
+					},
+					"response": []
+				},
+				{
+					"name": "Get companies with page query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/companies?page=1&pageSize=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Page query with page and pageSize - localhost:8080/companies?page={page}&pageSize={pageSize}\ne.g. page equals 1, pageSize equals 1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add a company - 1st",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"companyName\" : \"alibaba\",\n\t\"employeesNumber\" : 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/companies",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a company - 2nd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"companyName\" : \"oocl\",\n\t\"employeesNumber\" : 250\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/companies",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"companyName\" : \"updated\",\n\t\"employeesNumber\" : 500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/companies/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all employees belong to specific company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/companies/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"companies",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Get employee list / specific employee details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						},
+						"description": "1. Obtain employee list - localhost:8080/employees\n2. Obtain a certain specific employee - localhost:8080/employees/{employeeId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get employees by gender",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/employees?gender=male",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							],
+							"query": [
+								{
+									"key": "gender",
+									"value": "male"
+								}
+							]
+						},
+						"description": "localhost:8080/employees?gender={gender}\ne.g. Get all male employees"
+					},
+					"response": []
+				},
+				{
+					"name": "Get employees with page query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/employees?page=1&pageSize=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Page query with page and pageSize - localhost:8080/employees?page={page}&pageSize={pageSize}\ne.g. page equals 1, pageSize equals 5"
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 1, 1st employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"alibaba1\",\r\n\t\"age\" : 20,\r\n\t\"gender\" : \"male\",\r\n\t\"salary\" : 6000,\r\n\t\"companyId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 1, 2nd employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"tengxun2\",\r\n\t\"age\" : 19,\r\n\t\"gender\" : \"female\",\r\n\t\"salary\" : 7000,\r\n\t\"companyId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 1, 3rd employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"alibaba3\",\r\n\t\"age\" : 19,\r\n\t\"gender\" : \"male\",\r\n\t\"salary\" : 8000,\r\n\t\"companyId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 1, 4th employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"huiwei1\",\r\n\t\"age\" : 16,\r\n\t\"gender\" : \"male\",\r\n\t\"salary\" : 9000,\r\n\t\"companyId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 2, 1st employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"Xiaoming\",\r\n\t\"age\" : 20,\r\n\t\"gender\" : \"male\",\r\n\t\"salary\" : 10000,\r\n\t\"companyId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 2, 2nd employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"Xiaohong\",\r\n\t\"age\" : 19,\r\n\t\"gender\" : \"female\",\r\n\t\"salary\" : 10000,\r\n\t\"companyId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 2, 3rd employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"Xiaozhi\",\r\n\t\"age\" : 30,\r\n\t\"gender\" : \"male\",\r\n\t\"salary\" : 10000,\r\n\t\"companyId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 2, 4th employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"Xiaogang\",\r\n\t\"age\" : 36,\r\n\t\"gender\" : \"male\",\r\n\t\"salary\" : 10000,\r\n\t\"companyId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an employee - companyId: 2, 5th employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"Xiaoxia\",\r\n\t\"age\" : 45,\r\n\t\"gender\" : \"female\",\r\n\t\"salary\" : 10000,\r\n\t\"companyId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an employee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\" : \"updated\",\r\n\t\"age\" : 55,\r\n\t\"gender\" : \"female\",\r\n\t\"salary\" : 60000,\r\n\t\"companyId\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an employee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/employees/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ParkingBoy",
+			"item": [
+				{
+					"name": "Get parking boy list / specific parking boy details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/parking-boys",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-boys"
+							]
+						},
+						"description": "1. Obtain parking boy list - localhost:8080/parking-boys\n2. Obtain a certain specific parking boy - localhost:8080/parking-boys/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Add parking boy - 1st",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"employeeId\" : 1,\r\n\t\"nickName\" : \"No. 1 Parking Boy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/parking-boys",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-boys"
+							]
+						},
+						"description": "1. Obtain employee list - localhost:8080/employees\n2. Obtain a certain specific employee - localhost:8080/employees/{employeeId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Add parking boy - 2nd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"employeeId\" : 3,\r\n\t\"nickName\" : \"No. 10 Parking Boy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/parking-boys",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-boys"
+							]
+						},
+						"description": "1. Obtain employee list - localhost:8080/employees\n2. Obtain a certain specific employee - localhost:8080/employees/{employeeId}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a parking boy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nickName\" : \"Lazy boy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/parking-boys/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-boys",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a parking boy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/parking-boys/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-boys",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -24,8 +24,9 @@ public class Employee {
     private Integer salary;
     private Integer companyId;
 
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeeId", referencedColumnName = "employeeId")
+    @JoinColumn(name = "employeeId", referencedColumnName = "id")
     private ParkingBoy parkingBoy;
 
     @Override
