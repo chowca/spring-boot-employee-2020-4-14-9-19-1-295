@@ -17,7 +17,9 @@ import java.util.Objects;
 @Table(name = "parking_boy")
 public class ParkingBoy {
     @Id
+    @Column(name = "employee_id")
     private Integer employeeId;
+    @Column(name = "nick_name")
     private String nickName;
 
     @JsonIgnore
@@ -30,11 +32,12 @@ public class ParkingBoy {
         if (o == null || getClass() != o.getClass()) return false;
         ParkingBoy that = (ParkingBoy) o;
         return Objects.equals(employeeId, that.employeeId) &&
-                Objects.equals(nickName, that.nickName);
+                Objects.equals(nickName, that.nickName) &&
+                Objects.equals(employee, that.employee);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, nickName);
+        return Objects.hash(employeeId, nickName, employee);
     }
 }

@@ -62,7 +62,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.200</version>
+            <version>1.4.199</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -70,5 +70,22 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>jdbc:h2:~/tw/test</url>
+                    <user>sa</user>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
